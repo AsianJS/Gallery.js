@@ -81,11 +81,9 @@ Make it animate nicely. You'll need CSS3 for this*/
   left:45%;
   position: absolute;
   transition: all 1s ease;
+  rotate:90deg;
 }
 
-.rot90:focus{
-  transform: rotate(90deg);
-}
 
 /*Add CSS styles to rotate the element 180deg
 Make it animate nicely. You'll need CSS3 for this*/
@@ -100,7 +98,5 @@ Make it animate nicely. You'll need CSS3 for this*/
   left:45%;
   position: absolute;
   transition: all 1s ease;
-}
-.rot270:focus{
-  transform: rotate(270deg);
+  rotate:270deg;
 }

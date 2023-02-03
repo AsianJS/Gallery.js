@@ -79,6 +79,15 @@ $(document).ready(function() {
   // This initially hides the photos' metadata information
   //$('.details').eq(0).hide();
   fetchJSON();
+  /*
+  let a = images-short.json
+  $.get(a, function(data) {
+    responseText = data;
+    swapPhoto();
+  }).fail(function(){
+    fetchJSON();
+  });
+  */
   $(".moreIndicator").click(function() {
     if ($(".moreIndicator").hasClass("rot90")) {
       $(".moreIndicator").toggleClass("rot90");
@@ -138,7 +147,6 @@ function fetchJSON() {
   mRequest.send();
 
 }
-
 function iterateJSON() {
   if (responseText == "") {
     fetchJSON();
@@ -146,4 +154,5 @@ function iterateJSON() {
   for (let i = 0; i < responseText.images.length - 1; i++) {
     mImages[i] = new GalleryImage(responseText.images[i].imgLocation, responseText.images[i].description, responseText.images[i].date, responseText.images[i].imgPath);
   }
+  swapPhoto();
 }
