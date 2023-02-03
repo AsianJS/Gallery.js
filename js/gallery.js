@@ -80,8 +80,9 @@ $(document).ready(function() {
   //$('.details').eq(0).hide();
   fetchJSON();
   /*
-  let a = images-short.json
+  let a = "images-short.json";
   $.get(a, function(data) {
+    mImages = [];
     responseText = data;
     iterateJSON();
     swapPhoto();
@@ -135,7 +136,6 @@ function GalleryImage(a, b, c, d) {
   //4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
 }
 let responseText = "";
-
 function fetchJSON() {
   mRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -144,14 +144,9 @@ function fetchJSON() {
     }
   }
   mRequest.open("GET", mUrl, true);
-
   mRequest.send();
-
 }
 function iterateJSON() {
-  if (responseText == "") {
-    fetchJSON();
-  }
   for (let i = 0; i < responseText.images.length; i++) {
     mImages[i] = new GalleryImage(responseText.images[i].imgLocation, responseText.images[i].description, responseText.images[i].date, responseText.images[i].imgPath);
   }
