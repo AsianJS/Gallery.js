@@ -38,13 +38,13 @@ function swapPhoto() {
   //with a new image from your images array which is loaded 
   //from the JSON string
   mCurrentIndex++;
-  if (mCurrentIndex > responseText.images.length - 1) {
+  if (mCurrentIndex > mImages.length - 1) {
     mCurrentIndex = 0;
   }
-  $("#photo").attr("src", responseText.images[mCurrentIndex].imgPath);
-  $(".location").text($(".location").text().replace($(".location").text(), "Location: " + responseText.images[mCurrentIndex].imgLocation));
-  $(".description").text($(".description").text().replace($(".description").text(), "Description: " + responseText.images[mCurrentIndex].description));
-  $(".date").text($(".date").text().replace($(".date").text(), "Date: " + responseText.images[mCurrentIndex].date));
+  $("#photo").attr("src", mImages[mCurrentIndex].photo);
+  $(".location").text($(".location").text().replace($(".location").text(), "Location: " + mImages[mCurrentIndex].location));
+  $(".description").text($(".description").text().replace($(".description").text(), "Description: " + mImages[mCurrentIndex].description));
+  $(".date").text($(".date").text().replace($(".date").text(), "Date: " + mImages[mCurrentIndex].date));
 
   console.log('swap photo');
 }
@@ -83,6 +83,7 @@ $(document).ready(function() {
   let a = images-short.json
   $.get(a, function(data) {
     responseText = data;
+    iterateJSON();
     swapPhoto();
   }).fail(function(){
     fetchJSON();
@@ -151,7 +152,7 @@ function iterateJSON() {
   if (responseText == "") {
     fetchJSON();
   }
-  for (let i = 0; i < responseText.images.length - 1; i++) {
+  for (let i = 0; i < responseText.images.length; i++) {
     mImages[i] = new GalleryImage(responseText.images[i].imgLocation, responseText.images[i].description, responseText.images[i].date, responseText.images[i].imgPath);
   }
   swapPhoto();
