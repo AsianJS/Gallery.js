@@ -108,7 +108,7 @@ $(document).ready(function() {
   });
   $("#prevPhoto").click(function() {
     if (mCurrentIndex == 0) {
-      mCurrentIndex = 11;
+      mCurrentIndex = mImages.length - 2;
     } else {
       mCurrentIndex -= 2;
     }
