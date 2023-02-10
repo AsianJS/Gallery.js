@@ -99,7 +99,7 @@ $(document).ready(function() {
   //Starts the fetchJSON function when the website loads
   //fetchJSON();
 
-  let a = "images-short.json";
+  let a = "extra.json";
   
   $.get(a, function(data) {
     mImages = [];
