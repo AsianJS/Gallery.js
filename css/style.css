@@ -28,9 +28,13 @@ body {
 	height: 50px;
 	width: 50px;
 	position: absolute;
-	z-index: 3;
+	z-index: 10;
 	opacity: .8;
 	top: 0px;
+}
+
+.moreIndicator:hover{
+  opacity:0.6;
 }
 
 .thumbnail {
@@ -51,11 +55,14 @@ body {
 
 #prevPhoto {
 	height: 42px;
+  transition: all 1s ease;
 	width: 42px;
 }
 
 #nextPhoto {
 	height: 42px;
+  transition: all 1s ease;
+
 	width: 42px;
 }
 
@@ -69,10 +76,10 @@ body {
 }
 
 #prevPhoto:hover{
-  opacity:.8;
+  opacity:.7;
 }
 #nextPhoto:hover{
-  opacity:.8
+  opacity:.7;
 }
 /*Add CSS styles to rotate the element 90deg
 Make it animate nicely. You'll need CSS3 for this*/
@@ -99,4 +106,7 @@ Make it animate nicely. You'll need CSS3 for this*/
   position: absolute;
   transition: all 1s ease;
   rotate:270deg;
+}
+.hey{
+  display:inline;
 }

@@ -31,20 +31,38 @@ function animate() {
 }
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
-
+//Swaps the information and photo using the mCurrentIndex
+let t = false;
+let f = false;
 function swapPhoto() {
-  //Add code here to access the #slideShow element.
-  //Access the img element and replace its source
-  //with a new image from your images array which is loaded 
-  //from the JSON string
   mCurrentIndex++;
   if (mCurrentIndex > mImages.length - 1) {
     mCurrentIndex = 0;
   }
-  $("#photo").attr("src", mImages[mCurrentIndex].photo);
-  $(".location").text($(".location").text().replace($(".location").text(), "Location: " + mImages[mCurrentIndex].location));
-  $(".description").text($(".description").text().replace($(".description").text(), "Description: " + mImages[mCurrentIndex].description));
-  $(".date").text($(".date").text().replace($(".date").text(), "Date: " + mImages[mCurrentIndex].date));
+  if (!f) {
+    $("#photo").attr('src', mImages[mCurrentIndex].photo);
+    $(".location").text($(".location").text().replace($(".location").text(),  mImages[mCurrentIndex].location));
+    $(".description").text($(".description").text().replace($(".description").text(), mImages[mCurrentIndex].description));
+    $(".date").text($(".date").text().replace($(".date").text(), mImages[mCurrentIndex].date));
+    f = true;
+  } else {
+    $(".photoHolder").fadeOut('slow', function() {
+      $("#photo").attr('src', mImages[mCurrentIndex].photo);
+      $(".photoHolder").fadeIn('slow');
+    });
+    if (!t) {
+      $(".stuff").fadeOut('slow', function() {
+        $(".location").text($(".location").text().replace($(".location").text(), mImages[mCurrentIndex].location));
+        $(".description").text($(".description").text().replace($(".description").text(), mImages[mCurrentIndex].description));
+        $(".date").text($(".date").text().replace($(".date").text(), mImages[mCurrentIndex].date));
+        $(".stuff").fadeIn('slow');
+      })
+    } else {
+      $(".location").text($(".location").text().replace($(".location").text(), mImages[mCurrentIndex].location));
+      $(".description").text($(".description").text().replace($(".description").text(), mImages[mCurrentIndex].description));
+      $(".date").text($(".date").text().replace($(".date").text(), mImages[mCurrentIndex].date));
+    }
+  }
 
   console.log('swap photo');
 }
@@ -78,34 +96,42 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 $(document).ready(function() {
   // This initially hides the photos' metadata information
   //$('.details').eq(0).hide();
-  fetchJSON();
-  /*
+  //Starts the fetchJSON function when the website loads
+  //fetchJSON();
+
   let a = "images-short.json";
+  
   $.get(a, function(data) {
     mImages = [];
     responseText = data;
     iterateJSON();
+    $(".banner").text($(".banner").text().replace($(".banner").text(), "Chess Pictures"));
     swapPhoto();
-  }).fail(function(){
+  }).fail(function() {
     fetchJSON();
   });
-  */
+  
+  //When the user click on the info arrow, the arrow will rotate to the apporiate spot
   $(".moreIndicator").click(function() {
     if ($(".moreIndicator").hasClass("rot90")) {
       $(".moreIndicator").toggleClass("rot90");
       $(".moreIndicator").toggleClass("rot270");
+      t = true;
       $(".details").slideToggle("slow", function() { });
     } else {
       $(".moreIndicator").toggleClass("rot90");
       $(".moreIndicator").toggleClass("rot270");
+      t = false;
       $(".details").slideToggle("slow", function() { });
     }
   });
+  //Positions the #nextPhoto arrow
   $("#nextPhoto").position({
     my: "right bottom",
     at: "right bottom",
     of: "#nav"
   });
+  //When user clicks the back button, the gallery will go to the last image
   $("#prevPhoto").click(function() {
     if (mCurrentIndex == 0) {
       mCurrentIndex = mImages.length - 2;
@@ -124,6 +150,7 @@ window.addEventListener('load', function() {
   console.log('window loaded');
 
 }, false);
+//Gallery Image object
 function GalleryImage(a, b, c, d) {
   this.location = a;
   this.description = b;
@@ -136,6 +163,7 @@ function GalleryImage(a, b, c, d) {
   //4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
 }
 let responseText = "";
+//Fetches the JSON from the JSON file
 function fetchJSON() {
   mRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -146,6 +174,7 @@ function fetchJSON() {
   mRequest.open("GET", mUrl, true);
   mRequest.send();
 }
+//Goes through the JSON and puts in mImages
 function iterateJSON() {
   for (let i = 0; i < responseText.images.length; i++) {
     mImages[i] = new GalleryImage(responseText.images[i].imgLocation, responseText.images[i].description, responseText.images[i].date, responseText.images[i].imgPath);

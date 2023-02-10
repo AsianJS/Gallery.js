@@ -14,8 +14,9 @@
 </head>
 
 <body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <div id="photoBooth">
-    <p class="banner">IS219 Slide Show</p>
+    <p class="banner fs-1">IS219 Slide Show</p>
     <div id="slideShow">
       <div class="photoHolder">
         <img class="thumbnail img-fluid" id="photo" src="http://placehold.it/518x389?text=Welcome+to+my+Gallery"
@@ -27,9 +28,16 @@
         <img id="nextPhoto" src="img/arrow.png" alt="Next Photo" />
       </div>
       <div class="details">
-        <p class="location">Location: </p>
-        <p class="description">Description: </p>
-        <p class="date">Date: </p>
+        <p class="hey">Location:
+        <div class="location stuff hey"></div>
+        </p>
+        <p class="hey">Description:
+        <div class="description stuff hey"></div>
+        </p>
+        <p class="hey">Date:
+
+        <div class="date stuff hey"></div>
+        </p>
       </div>
 
     </div>
